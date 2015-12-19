@@ -1,0 +1,75 @@
+{% load staticfiles %}
+
+<html>
+<head>
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+</head>
+<body><H1>{{ message }}</H1>
+<h1>Subreddit Recommender</h1>
+
+<div class="input-group">
+  <input placeholder="Enter Subreddit to Search" type="text" class="form-control">
+  <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+</div>
+
+
+
+<hr>
+
+<div style="float:left;display:inline-block; width:50%">
+<div class="list-group">
+  <button type="button" class="button-sm list-group-item">Cras justo odio</button>
+  <button type="button" class="list-group-item">Dapibus ac facilisis in</button>
+  <button type="button" class="list-group-item">Morbi leo risus</button>
+  <button type="button" class="list-group-item">Porta ac consectetur ac</button>
+  <button type="button" class="list-group-item">Vestibulum at eros</button>
+    <button type="button" class="button-sm list-group-item">Cras justo odio</button>
+  <button type="button" class="list-group-item">Dapibus ac facilisis in</button>
+  <button type="button" class="list-group-item">Morbi leo risus</button>
+  <button type="button" class="list-group-item">Porta ac consectetur ac</button>
+  <button type="button" class="list-group-item">Vestibulum at eros</button>
+
+</div><nav>
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">«</span>
+      </a>
+    </li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">»</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+</div><div style="width:50%; display:inline-block;">
+  <div class="panel panel-default" style="
+    vertical-align: top;
+">
+  <div class="panel-body"><ul><li>Awwww</li>
+<li>Politics</li><ul></ul></ul></div>
+</div>
+  <button type="button" class="btn btn-default">Recommend Singular</button>
+    <button type="button" class="btn btn-default">Recommend Multiple</button>
+<div class="panel panel-default" style="
+    vertical-align: top;
+">
+  <h3>Recommendations</h3>
+  <div class="panel-body"><ul><li>cat</li>
+<li>trump</li><ul></ul></ul></div>
+</div>
+</div>
+
+
+
+
+</body>
+
+
+</body></html>

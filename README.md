@@ -43,6 +43,8 @@
 
   1. [Sentiment Analysis Prototype](#sentiment-analysis-prototype)
 
+  1. [Django Web App prototype for Recommender product] (#django-web-app-prototype-for-recommender-product)
+
 ## Introduction & Data
 Reddit is an extremely popular social networking site. They have 32 million users every month. There are ~850,000 subreddits and growing(1). The possible social network analysis that can be performed on the information in this popular site are endless. In July 2015, a reddit user announced the availability of the Reddit comments between October of 2007 and May of 2015(2). The dataset is available for an download from archive.org(3). There are 1.7 billion comments at approx. 150 GB compressed.
 
@@ -224,6 +226,10 @@ to Cassandra
 
 ### Sentiment Analysis Prototype
 * [`Sentiment/`](Sentiment/) - Prototype for Sentiment Analysis using AlchemyAPI using Spark
+
+### Django Web App prototype for Recommender product
+* [`webapp/`](webapp/) - An attempt to launch spark job from django web app (it does not work yet)
+
 
 References:
 (1)  http://expandedramblings.com/index.php/reddit-stats/
