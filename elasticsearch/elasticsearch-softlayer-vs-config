@@ -1,0 +1,1 @@
+slcli vs create --datacenter=dal05 --cpu=4 --memory=65536 --os=UBUNTU_LATEST_64 --disk=100 --disk=750 --san --network=1000

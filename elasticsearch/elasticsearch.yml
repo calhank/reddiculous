@@ -1,0 +1,18 @@
+# ======================== Elasticsearch Configuration =========================
+#
+cluster.name: es_reddit
+#
+node.name: node-5
+#
+path.data: /media/elasticsearch/data1
+#
+path.logs: /media/elasticsearch/logs1
+#
+path.plugins: /home/elasticsearch/elasticsearch-2.1.0/plugins
+#
+network.host: 184.173.97.152
+#
+discovery.zen.ping.unicast.hosts: ["one", "two", "three", "four","five"]
+#
+bootstrap.mlockall: true
+#

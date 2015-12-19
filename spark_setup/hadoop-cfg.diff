@@ -1,0 +1,166 @@
+diff -uNr hadoop-2.7.1.orig/etc/hadoop/core-site.xml hadoop-2.7.1/etc/hadoop/core-site.xml
+--- hadoop-2.7.1.orig/etc/hadoop/core-site.xml	2015-11-18 22:27:15.000000000 -0600
++++ hadoop-2.7.1/etc/hadoop/core-site.xml	2015-12-03 19:40:39.959000000 -0600
+@@ -1,20 +1,47 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+-<!--
+-  Licensed under the Apache License, Version 2.0 (the "License");
+-  you may not use this file except in compliance with the License.
+-  You may obtain a copy of the License at
+-
+-    http://www.apache.org/licenses/LICENSE-2.0
+-
+-  Unless required by applicable law or agreed to in writing, software
+-  distributed under the License is distributed on an "AS IS" BASIS,
+-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-  See the License for the specific language governing permissions and
+-  limitations under the License. See accompanying LICENSE file.
+--->
+-
+-<!-- Put site-specific property overrides in this file. -->
+-
++<?xml version="1.0"?>
+ <configuration>
++  <property>
++    <name>hadoop.tmp.dir</name>
++    <value>/root/tmp</value>
++  </property>
++  <property>
++    <name>fs.defaultFS</name>
++    <value>hdfs://final-gateway/</value>
++  </property>
++  <property>
++    <name>fs.swift.impl</name>
++    <value>org.apache.hadoop.fs.swift.snative.SwiftNativeFileSystem</value>
++  </property>
++  <property>
++    <name>fs.swift.service.dal05.auth.url</name>
++    <value>https://dal05.objectstorage.service.networklayer.com/auth/v1.0</value>
++  </property>
++  <property>
++    <name>fs.swift.service.dal05.http.port</name>
++    <value>8080</value>
++  </property>
++  <property>
++    <name>fs.swift.service.dal05.public</name>
++    <value>true</value>
++  </property>
++  <property>
++    <name>fs.swift.service.dal05.location-aware</name>
++    <value>false</value>
++  </property>
++  <property>
++    <name>fs.swift.service.dal05.endpoint.prefix</name>
++    <value>endpoints</value>
++  </property>
++  <property>
++    <name>fs.swift.service.dal05.apikey</name>
++    <value>apikey</value>
++  </property>
++  <property>
++    <name>fs.swift.service.dal05.username</name>
++    <value>user</value>
++  </property>
++  <property>
++    <name>fs.swift.service.dal05.use.get.auth</name>
++    <value>true</value>
++  </property>
+ </configuration>
+diff -uNr hadoop-2.7.1.orig/etc/hadoop/hadoop-env.sh hadoop-2.7.1/etc/hadoop/hadoop-env.sh
+--- hadoop-2.7.1.orig/etc/hadoop/hadoop-env.sh	2015-11-18 22:27:15.000000000 -0600
++++ hadoop-2.7.1/etc/hadoop/hadoop-env.sh	2015-11-22 23:18:27.821000000 -0600
+@@ -96,3 +96,12 @@
+ 
+ # A string representing this instance of hadoop. $USER by default.
+ export HADOOP_IDENT_STRING=$USER
++export JAVA_HOME="$(readlink -f $(which java) | grep -oP '.*(?=/bin)')"
++export HADOOP_HOME=/usr/local/hadoop-2.7.1
++export LD_LIBRARY_PATH=$HADOOP_HOME/lib/native
++export SPARK_HOME=/usr/local/spark-1.5.2-bin-2.7.1
++export HADOOP_MAPRED_HOME=$HADOOP_HOME
++export HADOOP_HDFS_HOME=$HADOOP_HOME
++export HADOOP_YARN_HOME=$HADOOP_HOME
++export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sbin
++export HADOOP_CLASSPATH="$HADOOP_HOME/share/hadoop/tools/lib/*"
+diff -uNr hadoop-2.7.1.orig/etc/hadoop/hdfs-site.xml hadoop-2.7.1/etc/hadoop/hdfs-site.xml
+--- hadoop-2.7.1.orig/etc/hadoop/hdfs-site.xml	2015-11-18 22:27:15.000000000 -0600
++++ hadoop-2.7.1/etc/hadoop/hdfs-site.xml	2015-11-22 23:18:27.825000000 -0600
+@@ -1,21 +1,17 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+-<!--
+-  Licensed under the Apache License, Version 2.0 (the "License");
+-  you may not use this file except in compliance with the License.
+-  You may obtain a copy of the License at
+-
+-    http://www.apache.org/licenses/LICENSE-2.0
+-
+-  Unless required by applicable law or agreed to in writing, software
+-  distributed under the License is distributed on an "AS IS" BASIS,
+-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-  See the License for the specific language governing permissions and
+-  limitations under the License. See accompanying LICENSE file.
+--->
+-
+-<!-- Put site-specific property overrides in this file. -->
+-
++<?xml version="1.0"?>
+ <configuration>
++  <property>
++      <name>dfs.datanode.data.dir</name>
++      <value>file:///mnt/hdfs1/datanode</value>
++  </property>
++
++  <property>
++      <name>dfs.namenode.name.dir</name>
++      <value>file:///mnt/hdfs1/namenode</value>
++  </property>
+ 
++  <property>
++      <name>dfs.namenode.checkpoint.dir</name>
++      <value>file:///mnt/hdfs1/namesecondary</value>
++  </property>
+ </configuration>
+diff -uNr hadoop-2.7.1.orig/etc/hadoop/mapred-site.xml hadoop-2.7.1/etc/hadoop/mapred-site.xml
+--- hadoop-2.7.1.orig/etc/hadoop/mapred-site.xml	1969-12-31 18:00:00.000000000 -0600
++++ hadoop-2.7.1/etc/hadoop/mapred-site.xml	2015-11-22 23:18:27.824000000 -0600
+@@ -0,0 +1,7 @@
++<?xml version="1.0"?>
++<configuration>
++  <property>
++    <name>mapreduce.framework.name</name>
++    <value>yarn</value>
++  </property>
++</configuration>
+diff -uNr hadoop-2.7.1.orig/etc/hadoop/yarn-site.xml hadoop-2.7.1/etc/hadoop/yarn-site.xml
+--- hadoop-2.7.1.orig/etc/hadoop/yarn-site.xml	2015-11-18 22:27:16.000000000 -0600
++++ hadoop-2.7.1/etc/hadoop/yarn-site.xml	2015-11-22 23:18:27.823000000 -0600
+@@ -1,19 +1,11 @@
+ <?xml version="1.0"?>
+-<!--
+-  Licensed under the Apache License, Version 2.0 (the "License");
+-  you may not use this file except in compliance with the License.
+-  You may obtain a copy of the License at
+-
+-    http://www.apache.org/licenses/LICENSE-2.0
+-
+-  Unless required by applicable law or agreed to in writing, software
+-  distributed under the License is distributed on an "AS IS" BASIS,
+-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-  See the License for the specific language governing permissions and
+-  limitations under the License. See accompanying LICENSE file.
+--->
+ <configuration>
+-
+-<!-- Site specific YARN configuration properties -->
+-
++  <property>
++    <name>yarn.resourcemanager.hostname</name>
++    <value>final-gateway</value>
++  </property>
++  <property>
++    <name>yarn.nodemanager.aux-services</name>
++    <value>mapreduce_shuffle</value>
++  </property>
+ </configuration>

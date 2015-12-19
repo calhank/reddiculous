@@ -1,0 +1,8 @@
+*~
+err
+out
+*.out
+target/
+\#*\#
+*.pyc
+*.pyo
